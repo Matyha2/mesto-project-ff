@@ -7,7 +7,7 @@
 // @todo: Функция удаления карточки
 
 // @todo: Вывести карточки на страницу
-function createCard(cardData) {
+function createCard(cardData,cardDelete) {
   const cardElement = document.querySelector('#card-template').content.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardTitle = cardElement.querySelector('.card__title');
@@ -15,16 +15,15 @@ function createCard(cardData) {
 
   cardImage.src = cardData.link;
   cardTitle.textContent = cardData.name;
+  cardImage.alt = `Изображение места: ${cardData.name}`; 
   
   removeButton.addEventListener('click', function() {
-    cardElement.remove(); 
+  cardDelete(cardElement); 
   });
   
   return cardElement;
 }
 const placesList = document.querySelector('.places__list');
 initialCards.forEach(cardData => {
-  const cardPart = createCard(cardData, function() {
-  });
-  placesList.appendChild(cardPart);
+  placesList.append(createCard(cardData, card => card.remove()));
 });
