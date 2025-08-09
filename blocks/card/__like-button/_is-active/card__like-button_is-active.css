@@ -1,3 +1,8 @@
-.card__like-button_is-active {
+
+.card__like-button_active{
+  width: 21px;
+  height: 18px;
   background: transparent url('../../../../images/like-active.svg') no-repeat;
 }
+
+

@@ -7,23 +7,36 @@
 // @todo: Функция удаления карточки
 
 // @todo: Вывести карточки на страницу
-function createCard(cardData,cardDelete) {
-  const cardElement = document.querySelector('#card-template').content.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardTitle = cardElement.querySelector('.card__title');
-  const removeButton = cardElement.querySelector('.card__delete-button');
-
+function createCard(cardData, deleteCard, likeButtonClick) {
+  const cardOver = document.querySelector('#card-template').content.querySelector('.card').cloneNode(true);
+  const cardImage = cardOver.querySelector('.card__image');
+  const cardTitle = cardOver.querySelector('.card__title');
+  const deleteButton = cardOver.querySelector('.card__delete-button');
+  const likeButton = cardOver.querySelector('.card__like-button');
+  
   cardImage.src = cardData.link;
   cardTitle.textContent = cardData.name;
-  cardImage.alt = `Изображение места: ${cardData.name}`; 
+  cardImage.alt = `место: ${cardData.name}`;
   
-  removeButton.addEventListener('click', function() {
-  cardDelete(cardElement); 
+  deleteButton.addEventListener('click', function() {
+    deleteCard(cardOver);
   });
   
-  return cardElement;
+  likeButton.addEventListener('click', function(){
+    if (likeButton.classList.contains('.card__like-button')){
+      likeButton.classList.add('card__like-button_active');
+      likeButton.classList.remove('.card__like-button');
+    }
+    else{
+      likeButton.classList.add('.card__like-button');
+      likeButton.classList.remove('card__like-button_active');
+    }
+  });
+
+  return cardOver;
 }
-const placesList = document.querySelector('.places__list');
-initialCards.forEach(cardData => {
-  placesList.append(createCard(cardData, card => card.remove()));
+
+const cardPlaces = document.querySelector('.places__list');
+initialCards.forEach((cardData) => {
+  cardPlaces.append(createCard(cardData, (card) => card.remove()));
 });
