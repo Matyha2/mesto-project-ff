@@ -7,7 +7,7 @@
 // @todo: Функция удаления карточки
 
 // @todo: Вывести карточки на страницу
-function createCard(cardData, deleteCard, likeButtonClick) {
+function createCard(cardData) {
   const cardOver = document.querySelector('#card-template').content.querySelector('.card').cloneNode(true);
   const cardImage = cardOver.querySelector('.card__image');
   const cardTitle = cardOver.querySelector('.card__title');
@@ -17,20 +17,11 @@ function createCard(cardData, deleteCard, likeButtonClick) {
   cardImage.src = cardData.link;
   cardTitle.textContent = cardData.name;
   cardImage.alt = `место: ${cardData.name}`;
+    
+  deleteButton.addEventListener('click', () => cardOver.remove());
   
-  deleteButton.addEventListener('click', function() {
-    deleteCard(cardOver);
-  });
-  
-  likeButton.addEventListener('click', function(){
-    if (likeButton.classList.contains('.card__like-button')){
-      likeButton.classList.add('card__like-button_active');
-      likeButton.classList.remove('.card__like-button');
-    }
-    else{
-      likeButton.classList.add('.card__like-button');
-      likeButton.classList.remove('card__like-button_active');
-    }
+  likeButton.addEventListener('click', function() {
+    likeButton.classList.toggle('card__like-button_active');
   });
 
   return cardOver;
